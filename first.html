@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body >
+
+<div class="jumbotron">
+  <div class="container">
+   <h2 style="font-family: serif ;font-size:50px;color:#151B54;font-weight:bold;text-transform: uppercase;text-align: center;">Currency Calculator</h2>
+   
+   <form class="form-inline">
+   	<p class="lead" style="font-family: serif ;font-size:30px;color:black;font-weight:bold;text-transform: uppercase;text-align: center;"> Convert the currency</p>
+     <div class="form-group1">
+     	<label>Enter the amount to be converted :</label>
+        <input type="number" class="form-control" id="amount"/ on>
+     </div>
+     <br>
+     <div class="form-group2">
+     	<label>Select Currency : </label>
+        <select class="form-control1" id="currency-1" required>
+          <option>PLN</option>
+          <option>EUR</option>
+          <option>USD</option>
+          <OPTION>INR</OPTION>
+        </select>
+      </div>
+      <br>
+      <div class="form-group2">
+        <label>convert to</label>
+        <select class="form-control1" id="currency-2" required>
+          <option>EUR</option>
+          <option>USD</option>
+          <option>PLN</option>
+          <OPTION>INR</OPTION>
+        </select>
+      </div>  
+      <br>
+      <button class="btn calculate-btn btn-primary mb-2" align="center">Show me the result!</button>
+    </form>
+    <div class="result">
+      <p>
+        <span class="given-amount"></span> 
+        <span class="base-currency"></span>
+        <span class="final-result"></span> 
+        <span class="second-currency"></span>
+      </p>
+    </div>
+  </div> 
+</div>
+
+</body>
+<script type="text/javascript">
+	var crrncy = {'EUR': {'PLN': 4.15, 'USD': 0.83 ,'INR': 86.29}, 'USD': {'PLN': 3.45, 'EUR': 1.2 , 'INR' : 73.38} , 'PLN' : {'INR':18.78,'EUR':0.22,'USD':0.26}}
+var btn = document.querySelector('.calculate-btn');
+var baseCurrencyInput = document.getElementById('currency-1');
+var secondCurrencyInput = document.getElementById('currency-2');
+var amountInput = document.getElementById('amount');
+var toShowAmount = document.querySelector('.given-amount');
+var toShowBase = document.querySelector('.base-currency');
+var toShowSecond = document.querySelector('.second-currency');
+var toShowResult = document.querySelector('.final-result');
+
+function convertCurrency(event) {
+  event.preventDefault();
+  var amount = amountInput.value;
+  var from = baseCurrencyInput.value;
+  var to = secondCurrencyInput.value;
+  var result = 0;
+  
+  try{
+    if (from == to){
+      result = amount;
+    } else {
+     result = amount * crrncy[from][to];
+  }
+  }
+  catch(err) {
+    result = amount * (1 / crrncy[to][from]);
+  }
+  
+  toShowAmount.innerHTML = amount;
+  toShowBase.textContent = from + ' = ';
+  toShowSecond.textContent = to;
+  toShowResult.textContent = result; 
+}
+
+btn.addEventListener('click', convertCurrency);
+
+
+</script>
+</html>
